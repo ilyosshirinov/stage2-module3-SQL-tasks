@@ -5,7 +5,7 @@ CREATE TABLE Student
     birthday DATE   NOT NULL,
     group    INT    NOT NULL
 );
-
+-------------------------------------------------------------------------------------------------------------
 CREATE TABLE Subject
 (
     id          BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -13,27 +13,26 @@ CREATE TABLE Subject
     description VARCHAR(45),
     grade       INT    NOT NULL
 );
-
+-------------------------------------------------------------------------------------------------------------
 CREATE TABLE PaymentType
 (
     id   BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(45),
 );
-
+-------------------------------------------------------------------------------------------------------------
 CREATE TABLE Payment
 (
     id           BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    type_id      BIGINT NOT NULL AUTO_INCREMENT FOREIGN KEY,
+    foreign key (type_id) references PaymentType (id),
     amount       decimal(5, 2),
-    student_id   BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    payment_date GETDATE(
-)
-    );
-
+    foreign key (student_id) references Student (id),
+    payment_date GETDATE
+);
+-------------------------------------------------------------------------------------------------------------
 CREATE TABLE Mark
 (
-    id         BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    student_id BIGINT NOT NULL AUTO_INCREMENT FOREIGN KEY,
-    subject_id BIGINT NOT NULL AUTO_INCREMENT FOREIGN KEY,
-    mark       INT    NOT NULL
+    id   BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    foreign key (student_id) references Student (id),
+    foreign key (subject_id) references Subject (id),
+    mark INT    NOT NULL
 );
